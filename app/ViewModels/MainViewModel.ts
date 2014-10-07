@@ -7,11 +7,10 @@ class MainViewModel extends Fayde.MVVM.ViewModelBase {
 	constructor() {
 		super();
 		superagent
-			.get('/search')
-			.end(function(res){
-				console.log(res);
+			.get('http://localhost:1337/tables')
+			.end(function(err, res){
+				this.task = res.body[0];
 			});
-		this.task = "hi";
 	}
 }
 Fayde.MVVM.NotifyProperties(MainViewModel, ["task"]);
