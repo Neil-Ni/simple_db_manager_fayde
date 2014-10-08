@@ -14,5 +14,23 @@
         <TextBox x:Name="TaskTextBox" Text="{Binding task, Mode=TwoWay}" />
         <TextBlock Text="{Binding ElementName=TaskTextBox, Path=Text}" />
         <Button Content="Hey" />
+        <Grid Margin="0,18">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
+            <ItemsControl ItemsSource="{Binding tables}" Grid.Column="0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="#BBBBBB" BorderThickness="0,0,0,0">
+                            <Button Click="{EventBinding Command={Binding DataContext.SelectTableName, RelativeSource={RelativeSource ItemsControlParent}}, CommandParameter={Binding}}">
+                                <TextBlock Text="{Binding name, Mode=TwoWay}" />
+                            </Button>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="{Binding selectedTable.name, Mode=TwoWay}" />
+        </Grid>
     </StackPanel>
 </Application>

@@ -7,7 +7,7 @@
 
 module.exports = {
 	find: function (req, res) {
-		res.send(["a", "b", "c"]);
+		res.send([ { name: "a" }, { name: "b"} , { name:"c"}]);
     }
 };
 
