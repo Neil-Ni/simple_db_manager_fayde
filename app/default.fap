@@ -21,7 +21,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <ItemsControl ItemsSource="{Binding tables, Mode=TwoWay}" Margin="10, 0, 0, 0">
+                <ItemsControl ItemsSource="{Binding tables}" Margin="10, 0, 0, 0">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="#BBBBBB" BorderThickness="0,0,0,0">

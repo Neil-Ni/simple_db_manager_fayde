@@ -4,7 +4,7 @@ import Table = require("Models/Table");
 import Api = require("Helpers/Api");
 
 class MainViewModel extends Fayde.MVVM.ViewModelBase {
-	tables: Table[] = [];  
+	tables: Fayde.Collections.ObservableCollection<Table> = new Fayde.Collections.ObservableCollection<Table>();
 	selectedTable: Table = null;
 	newTableName: string = "";
 	tableApi: Api = null;
@@ -14,10 +14,14 @@ class MainViewModel extends Fayde.MVVM.ViewModelBase {
 		this.load()
 	}
 	load() {
-		this.tables = [];
 		this.tableApi.getAll()
 			.end((err, res) => {
-				this.tables = res.body;
+                for (var x=0; x < res.body.length; x++) {
+                    var table = new Table();
+                    table.id = res.body[x].id;
+                    table.name = res.body[x].name;
+                    this.tables.Add(table);
+                }
 			});
 	}
 
@@ -26,11 +30,14 @@ class MainViewModel extends Fayde.MVVM.ViewModelBase {
     }
 
     CreateTable() {
-    	this.tableApi.post({name: this.newTableName})
+        var table = new Table();
+        table.name = this.newTableName;
+    	this.tableApi.post(table)
     		.end((err, res) => {
     			if (!err) {
     				this.newTableName = "";
-    				this.load();
+                    table.id = res.body.id;
+                    this.tables.Add(table);
     			}
     		})
     }
@@ -40,11 +47,12 @@ class MainViewModel extends Fayde.MVVM.ViewModelBase {
     }
 
     DeleteTable() {
-    	if (!this.selectedTable.id) return;
+    	if (!this.selectedTable || !this.selectedTable.id) return;
     	this.tableApi.del(this.selectedTable.id)
     		.end((err, res) => {
-    			if (!err) {
-    				this.load();
+                var index = this.tables.IndexOf(this.selectedTable);
+    			if (index > -1) {
+                    this.tables.RemoveAt(index);
     			}
     		})
     }
