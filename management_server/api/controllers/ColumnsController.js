@@ -8,7 +8,7 @@
 module.exports = {
 	find: function (req, res) {
 		if (req.query.table === "Users") {
-			res.send([{ name: "First Name"}, { name: "Last Name"}, { name: "Email"}])
+			res.send([{ name: "id"}, { name: "First Name"}, { name: "Last Name"}, { name: "Email"}])
 		} else {
 			res.send([]);
 		}
