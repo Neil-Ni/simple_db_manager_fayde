@@ -12,6 +12,9 @@ class Api {
 	get(id: number) {
 		return superagent.get(this.baseUrl + id)
 	}
+	query(obj: any) {
+		return superagent.get(this.baseUrl).query(obj)
+	}
 	post(obj: any) {
 		return superagent.post(this.baseUrl).send(obj)
 	}

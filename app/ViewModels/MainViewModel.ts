@@ -1,20 +1,25 @@
 /// <reference path="../lib/Fayde/Fayde.d.ts" />
 
 import Table = require("Models/Table");
+import Column = require("Models/Column");
 import Api = require("Helpers/Api");
 
 class MainViewModel extends Fayde.MVVM.ViewModelBase {
 	tables: Fayde.Collections.ObservableCollection<Table> = new Fayde.Collections.ObservableCollection<Table>();
+	columns: Fayde.Collections.ObservableCollection<Column> = new Fayde.Collections.ObservableCollection<Column>();
 	selectedTable: Table = null;
 	newTableName: string = "";
-	tableApi: Api = null;
+	tablesApi: Api = null;
+	columsApi: Api = null;
+
 	constructor() {
 		super();
-		this.tableApi = new Api('tables');
+		this.tablesApi = new Api('tables');
+		this.columsApi = new Api('columns');
 		this.load()
 	}
 	load() {
-		this.tableApi.getAll()
+		this.tablesApi.getAll()
 			.end((err, res) => {
 				for (var x=0; x < res.body.length; x++) {
 					var table = new Table();
@@ -27,6 +32,15 @@ class MainViewModel extends Fayde.MVVM.ViewModelBase {
 
 	SelectTableName(obj: any) {
 		this.selectedTable = obj.parameter;
+		this.columns.Clear();
+		this.columsApi.query({table : this.selectedTable.name})
+			.end((err, res) => {
+				for (var x=0; x < res.body.length; x++) {
+					var column = new Column();
+					column.name = res.body[x].name;
+					this.columns.Add(column);
+				}
+			})
 	}
 
 	AddClass() {
@@ -36,7 +50,7 @@ class MainViewModel extends Fayde.MVVM.ViewModelBase {
 	CreateTable() {
 		var table = new Table();
 		table.name = this.newTableName;
-		this.tableApi.post(table)
+		this.tablesApi.post(table)
 			.end((err, res) => {
 				if (!err) {
 					this.newTableName = "";
@@ -52,7 +66,7 @@ class MainViewModel extends Fayde.MVVM.ViewModelBase {
 
 	DeleteTable() {
 		if (!this.selectedTable || !this.selectedTable.id) return;
-		this.tableApi.del(this.selectedTable.id)
+		this.tablesApi.del(this.selectedTable.id)
 			.end((err, res) => {
 				var index = this.tables.IndexOf(this.selectedTable);
 				if (index > -1) {
