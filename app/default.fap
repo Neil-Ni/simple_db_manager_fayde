@@ -66,22 +66,12 @@
                     <Button Grid.Column="2" HorizontalAlignment="Right" Height="30" Width="100" Margin="5, 0, 20, 5" Content="Delete" Click="{EventBinding Command={Binding DataContext.DeleteTable, RelativeSource={RelativeSource Grid}}, CommandParameter={Binding}}"/>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <ItemsControl ItemsSource="{Binding columns}" Margin="10, 0, 0, 0">
-                    	<ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border BorderBrush="#BBBBBB" BorderThickness="0,0,0,0">
-                                    <TextBlock Text="{Binding name, Mode=TwoWay}" Margin="15, 0, 0, 0"/>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Grid>
-                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <exp:GridHeadersControl HeadersSource="{Binding columns}" ItemsControl="{Binding ElementName=ItemsControl}" Grid.Row="0">
+                    </exp:GridHeadersControl>
                 	<exp:GridItemsControl x:Name="ItemsControl" ItemsSource="{Binding rows}" ColumnsSource="{Binding columns}" FontSize="30" Grid.Row="1">
 			            <exp:GridItemsControl.Adorners>
 			                <exp:HoveredRowAdorner Background="#F1F1F1" />

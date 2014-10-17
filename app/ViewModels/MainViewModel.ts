@@ -41,18 +41,18 @@ class MainViewModel extends Fayde.MVVM.ViewModelBase {
 		this.columsApi.query({table : this.selectedTable.name})
 			.end((err, res) => {
 				var row = new Row();
-                var cols = [];
+				var cols = [];
 				for (var x=0; x < res.body.length; x++) {
 					var column = new Column();
 					column.name = res.body[x].name;
-                    cols.push(column);
+					cols.push(column);
 					this.columns.Add(res.body[x].name);
 				}
 				row.columns = cols;
-                row["id"] = 2;
-                row["First Name"] = "Brad";
-                row["Last Name"] = "SIckles";
-                row["Email"] = "bs@bs.com";
+        row["id"] = 2;
+        row["First Name"] = "Brad";
+        row["Last Name"] = "SIckles";
+        row["Email"] = "bs@bs.com";
 				var row2 = new Row();
 				row2.columns = cols;
 				this.rows.Add(row);
