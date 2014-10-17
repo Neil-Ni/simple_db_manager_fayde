@@ -8,6 +8,10 @@
 module.exports = {
 
   attributes: {
+  	table : {
+  		type: 'string',
+  		required: true
+  	},
   	row : {
   		type: 'array'
   	}
