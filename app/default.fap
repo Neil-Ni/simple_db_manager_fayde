@@ -2,6 +2,7 @@
         xmlns="http://schemas.wsick.com/fayde"
         xmlns:x="http://schemas.wsick.com/fayde/x"
         xmlns:vms="ViewModels"
+        xmlns:exp="lib:Fayde.Experimental"
         ThemeName="Metro">
     <Application.Resources>
     </Application.Resources>
@@ -51,6 +52,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
@@ -78,6 +80,28 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
+                </Grid>
+                <Grid Grid.Row="2">
+                	<exp:GridItemsControl x:Name="ItemsControl" ItemsSource="{Binding rows}" ColumnsSource="{Binding columns}" FontSize="30" Grid.Row="1">
+			            <exp:GridItemsControl.Adorners>
+			                <exp:HoveredRowAdorner Background="#F1F1F1" />
+			                <exp:SelectedRowAdorner Background="#B2E0F4" />
+			            </exp:GridItemsControl.Adorners>
+			            <exp:GridTemplateColumn>
+			                <exp:GridTemplateColumn.DisplayTemplate>
+			                    <DataTemplate>
+			                        <Button Content="Delete" Click="{EventBinding Command={Binding DataContext.RemoveItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type exp:GridItemsControl}}}, CommandParameter={Binding}}" />
+			                    </DataTemplate>
+			                </exp:GridTemplateColumn.DisplayTemplate>
+			            </exp:GridTemplateColumn>
+			            <exp:GridTemplateColumn>
+			                <exp:GridTemplateColumn.DisplayTemplate>
+			                    <DataTemplate>
+			                        <Button Content="Edit" MouseLeftButtonDown="{EventBinding Command={Binding Path=ToggleEditCommand, RelativeSource={RelativeSource ItemsControlParent}}, CommandParameter={Binding}}" />
+			                    </DataTemplate>
+			                </exp:GridTemplateColumn.DisplayTemplate>
+			            </exp:GridTemplateColumn>
+			        </exp:GridItemsControl>
                 </Grid>
             </Grid>
         </Grid>

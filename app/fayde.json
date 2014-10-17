@@ -9,6 +9,9 @@
     },
     "superagent": {
       "path": "lib/superagent/superagent"
+    },
+    "Fayde.Experimental": {
+      "exports": "Fayde.Experimental"
     }
   }
 }

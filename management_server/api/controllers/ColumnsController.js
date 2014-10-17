@@ -10,7 +10,7 @@ module.exports = {
 		if (req.query.table === "Users") {
 			res.send([{ name: "id"}, { name: "First Name"}, { name: "Last Name"}, { name: "Email"}])
 		} else {
-			res.send([]);
+			res.send([{ name: "id"}, { name: "name"}]);
 		}
 	}
 };
