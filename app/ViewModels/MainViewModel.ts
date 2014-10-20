@@ -9,6 +9,7 @@ class MainViewModel extends Fayde.MVVM.ViewModelBase {
 	tables = new Fayde.Collections.ObservableCollection<Table>();
 	columns = new Fayde.Collections.ObservableCollection<string>();
 	rows = new Fayde.Collections.ObservableCollection<any>();
+
 	selectedTable: Table = null;
 	newTableName: string = "";
 	tablesApi: Api = null;
@@ -41,7 +42,8 @@ class MainViewModel extends Fayde.MVVM.ViewModelBase {
 		this.columsApi.query({table : this.selectedTable.name})
 			.end((err, res) => {
 				for (var x=0; x < res.body.length; x++) {
-					this.columns.Add(res.body[x].name);
+					var columnName = res.body[x].name;
+					this.columns.Add(columnName);
 				}
 			});
 		this.rowsApi.query({table : this.selectedTable.name})
@@ -66,6 +68,22 @@ class MainViewModel extends Fayde.MVVM.ViewModelBase {
 				this.rows.Remove(row);
 			});
 	}
+
+	SaveTable() {
+		if (!this.selectedTable || !this.selectedTable.id)	return;
+		var rowsArray = this.rows.ToArray();
+		for (var x=0; x< rowsArray.length; x++) {
+			var row = rowsArray[x];
+			var obj = {}
+			for (var key in row)
+				if (key !== "id")	obj[key] = row[key];
+			this.rowsApi.put(row.id, {row: [obj]})
+				.end((err, res) => {
+
+				})
+		}
+	}
+
 
 	CreateTable() {
 		var table = new Table();

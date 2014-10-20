@@ -60,10 +60,12 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock  Grid.Column="0" HorizontalAlignment="Center" Text="Table Name: " />
                     <TextBlock  Grid.Column="1" HorizontalAlignment="Center" Text="{Binding selectedTable.name, Mode=TwoWay}" />
                     <Button Grid.Column="2" HorizontalAlignment="Right" Height="30" Width="100" Margin="5, 0, 20, 5" Content="Delete" Click="{EventBinding Command={Binding DataContext.DeleteTable, RelativeSource={RelativeSource Grid}}, CommandParameter={Binding}}"/>
+                    <Button Grid.Column="3" HorizontalAlignment="Right" Height="30" Width="100" Margin="5, 0, 20, 5" Content="Save" Click="{EventBinding Command={Binding DataContext.SaveTable, RelativeSource={RelativeSource Grid}}, CommandParameter={Binding}}"/>
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
@@ -80,7 +82,7 @@
 			            <exp:GridTemplateColumn>
 			                <exp:GridTemplateColumn.DisplayTemplate>
 			                    <DataTemplate>
-			                        <Button Content="Delete" Click="{EventBinding Command={Binding DataContext.RemoveRow, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type exp:GridItemsControl}}}, CommandParameter={Binding}}" />
+			                        <Button Content="Delete" Click="{EventBinding Command={Binding DataContext.RemoveItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type exp:GridItemsControl}}}, CommandParameter={Binding}}" />
 			                    </DataTemplate>
 			                </exp:GridTemplateColumn.DisplayTemplate>
 			            </exp:GridTemplateColumn>

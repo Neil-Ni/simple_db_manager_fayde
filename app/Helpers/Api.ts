@@ -21,8 +21,8 @@ class Api {
 	del(id: number) {
 		return superagent.del(this.baseUrl + id)
 	}
-	put(id: number) {
-		return superagent.put(this.baseUrl + id)
+	put(id: number, obj: any) {
+		return superagent.put(this.baseUrl + id).send(obj)
 	}
 }
 
