@@ -24,7 +24,7 @@ module.exports = {
     	if (!req.body.table) {
     		res.send("Missing table name", 401);
     	} else {
-    		Rows.create({table: req.body.table, row: req.body.row || []}, function(err, model) {	
+    		Rows.create({table: req.body.table, row: [req.body.row] || []}, function(err, model) {	
     			if(err) return res.json({ err: err }, 500);
     			res.json(model);
   			});

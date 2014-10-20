@@ -8,7 +8,7 @@ import Api = require("Helpers/Api");
 class MainViewModel extends Fayde.MVVM.ViewModelBase {
 	tables = new Fayde.Collections.ObservableCollection<Table>();
 	columns = new Fayde.Collections.ObservableCollection<string>();
-	rows = new Fayde.Collections.ObservableCollection<Row>();
+	rows = new Fayde.Collections.ObservableCollection<any>();
 	selectedTable: Table = null;
 	newTableName: string = "";
 	tablesApi: Api = null;
@@ -40,28 +40,22 @@ class MainViewModel extends Fayde.MVVM.ViewModelBase {
 		this.rows.Clear();
 		this.columsApi.query({table : this.selectedTable.name})
 			.end((err, res) => {
-				var row = new Row();
-				var cols = [];
 				for (var x=0; x < res.body.length; x++) {
-					var column = new Column();
-					column.name = res.body[x].name;
-					cols.push(column);
 					this.columns.Add(res.body[x].name);
 				}
-				row.columns = cols;
-        row["id"] = 2;
-        row["First Name"] = "Brad";
-        row["Last Name"] = "SIckles";
-        row["Email"] = "bs@bs.com";
-				var row2 = new Row();
-				row2.columns = cols;
-				this.rows.Add(row);
-				this.rows.Add(row2);
-			})
-	}
-
-	AddClass() {
-
+			});
+		this.rowsApi.query({table : this.selectedTable.name})
+			.end((err, res) => {
+				for (var x=0; x < res.body.length; x++) {
+					var row = {};
+					var data = res.body[x].row[0];
+					for (var key in data) {
+						row[key] = data[key];
+					}
+					row["id"] = res.body[x].id;
+					this.rows.Add(row);
+				}
+			});
 	}
 
 	CreateTable() {
