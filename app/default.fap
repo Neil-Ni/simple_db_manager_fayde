@@ -80,7 +80,7 @@
 			            <exp:GridTemplateColumn>
 			                <exp:GridTemplateColumn.DisplayTemplate>
 			                    <DataTemplate>
-			                        <Button Content="Delete" Click="{EventBinding Command={Binding DataContext.RemoveItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type exp:GridItemsControl}}}, CommandParameter={Binding}}" />
+			                        <Button Content="Delete" Click="{EventBinding Command={Binding DataContext.RemoveRow, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type exp:GridItemsControl}}}, CommandParameter={Binding}}" />
 			                    </DataTemplate>
 			                </exp:GridTemplateColumn.DisplayTemplate>
 			            </exp:GridTemplateColumn>

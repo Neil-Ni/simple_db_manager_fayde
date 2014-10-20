@@ -58,6 +58,15 @@ class MainViewModel extends Fayde.MVVM.ViewModelBase {
 			});
 	}
 
+	RemoveRow (args: Fayde.IEventBindingArgs<Fayde.RoutedEventArgs>) {
+		if (!args.parameter)	return;
+		var row = args.parameter;
+		this.rowsApi.del(row.id)
+			.end((err, res) => {
+				this.rows.Remove(row);
+			});
+	}
+
 	CreateTable() {
 		var table = new Table();
 		table.name = this.newTableName;
