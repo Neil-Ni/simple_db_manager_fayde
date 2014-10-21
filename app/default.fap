@@ -73,6 +73,8 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <exp:GridHeadersControl HeadersSource="{Binding columns}" ItemsControl="{Binding ElementName=ItemsControl}" Grid.Row="0">
+                        <exp:GridHeader Header="" />
+                        <exp:GridHeader Header="" />
                     </exp:GridHeadersControl>
                 	<exp:GridItemsControl x:Name="ItemsControl" ItemsSource="{Binding rows}" ColumnsSource="{Binding columns}" FontSize="30" Grid.Row="1">
 			            <exp:GridItemsControl.Adorners>
@@ -92,6 +94,11 @@
 			                        <Button Content="Edit" MouseLeftButtonDown="{EventBinding Command={Binding Path=ToggleEditCommand, RelativeSource={RelativeSource ItemsControlParent}}, CommandParameter={Binding}}" />
 			                    </DataTemplate>
 			                </exp:GridTemplateColumn.DisplayTemplate>
+			                <exp:GridTemplateColumn.EditTemplate>
+			                    <DataTemplate>
+			                        <Button Content="Save" MouseLeftButtonDown="{EventBinding Command={Binding Path=ToggleEditCommand, RelativeSource={RelativeSource ItemsControlParent}}, CommandParameter={Binding}}" />
+			                    </DataTemplate>
+			                </exp:GridTemplateColumn.EditTemplate>
 			            </exp:GridTemplateColumn>
 			        </exp:GridItemsControl>
                 </Grid>
